@@ -11,7 +11,10 @@ My full name: TRAN DUY THANH
 Blog study coding: https://duythanhcse.wordpress.com/
 
 
+GUI Demo:
+
 ![alt text](https://raw.githubusercontent.com/thanhtd32/ML.Recommend/main/Figures/ml.recommend.png)
+
 
 
 # ML.RealEstate - How to use?
