@@ -22,6 +22,8 @@ Blog study coding: https://duythanhcse.wordpress.com/
 Install-Package ML.Recommend -ProjectName YourProject
 ```
 
+Full source code demo https://github.com/thanhtd32/ML.Recommend/tree/main/ML.RecommendDemo
+
 ```
 using ML.Recommend.Data;
 using ML.Recommend.Error;
