@@ -17,7 +17,7 @@ GUI Demo:
 
 
 
-# ML.RealEstate - How to use?
+# ML.Recommend - How to use?
 
 # Install nuget package
 
