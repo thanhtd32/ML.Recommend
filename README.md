@@ -1,5 +1,8 @@
 # ML.Recommend
 
+We inherit and expand the machine learning library of Microsoft ML.NET, and proceed to build a new recommendation model with named ML.Recommend, which will use Matrix Factorization and combine Time Factor for Product Recommendation. The system will provide a complete machine learning model with a set of interactive classes libraries, data and class models are conducted on user reviews for each product with time interaction and the system will recommend products respectively based on the expected score to customers that user configured. The data is experimented on the UELStore e-commerce website (http://ecom.uelstore.com/), the trained models are provided for other researchers to use together with the source code of the ML.Recommend model published by us, the researchers can reuse and expand the features for this model.
+
+
 This Research from KMOU (Korea Maritime & Ocean University) - Data Science Lab - Room 407.
 
 Authors: Duy Thanh Tran, Prof. Jun-Ho Huh
