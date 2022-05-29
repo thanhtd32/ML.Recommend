@@ -21,6 +21,7 @@ Blog study coding: https://duythanhcse.wordpress.com/
 ```C#
 Install-Package ML.Recommend -ProjectName YourProject
 ```
+Full dataset : https://github.com/thanhtd32/ML.Recommend/tree/main/Dataset
 
 Full source code demo https://github.com/thanhtd32/ML.Recommend/tree/main/ML.RecommendDemo
 
