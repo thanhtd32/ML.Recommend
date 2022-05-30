@@ -21,12 +21,21 @@ My full name: TRAN DUY THANH
 
 Blog study coding: https://duythanhcse.wordpress.com/
 
+# ML.Recommend - model class
+
+![alt text](https://raw.githubusercontent.com/thanhtd32/ML.Recommend/main/images/model-class.png)
+
+RecommendEngine is a center class of the ML.Recommend
 
 GUI Demo:
 
+Test ML.Recommend model
+
 ![alt text](https://raw.githubusercontent.com/thanhtd32/ML.Recommend/main/images/ml.recommend.png)
 
+Test recommendation products for customers:
 
+![alt text](https://raw.githubusercontent.com/thanhtd32/ML.Recommend/main/images/ml.recommend_advanced.png)
 
 # ML.Recommend - How to use?
 
@@ -40,6 +49,7 @@ Full dataset : https://github.com/thanhtd32/ML.Recommend/tree/main/Dataset
 Full source code demo in Windows Desktop https://github.com/thanhtd32/ML.Recommend/tree/main/ML.RecommendDemo
 
 Full source code demo in Web .net core https://github.com/thanhtd32/ML.Recommend/tree/main/ML.RecommendWeb
+
 
 # Windows Desktop demo
 
@@ -295,4 +305,184 @@ namespace ML.RecommendDemo
         }
     }
 }
+```
+
+# Web .net core Demo
+
+Web Project structure:
+
+![alt text](https://github.com/thanhtd32/ML.Recommend/blob/main/images/web-project.PNG)
+
+in this web project, We use ML.Recommend-1.zip to test
+
+Web list of customers:
+
+![alt text](https://raw.githubusercontent.com/thanhtd32/ML.Recommend/main/images/web-list-customer.png)
+
+Web recommendation products for customers:
+
+![alt text](https://raw.githubusercontent.com/thanhtd32/ML.Recommend/main/images/web-recommendation-products.png)
+
+
+# CustomerController.cs
+
+```
+using Microsoft.AspNetCore.Mvc;
+using ML.Recommend.Data;
+using ML.Recommend.Predict;
+using System.Text.Json;
+
+namespace ML.RecommendWeb.Controllers
+{
+    public class CustomerController : Controller
+    {
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public CustomerController(IWebHostEnvironment webHostEnvironment)
+        {
+            _webHostEnvironment = webHostEnvironment;
+        }
+        public IActionResult Index()
+        {
+            string webRootPath = _webHostEnvironment.WebRootPath;
+            string contentRootPath = _webHostEnvironment.ContentRootPath;
+            string path = "";
+            path = Path.Combine(contentRootPath, "Dataset");
+            string customerFile= Path.Combine(path,"customers.json");
+            string jsonString = System.IO.File.ReadAllText(customerFile);
+            List<Customer> customers = JsonSerializer.Deserialize<List<Customer>>(jsonString)!;
+            return View(customers);
+        }
+        public IActionResult Recommends(int id)
+        {
+            RecommendEngine engine = new RecommendEngine();
+            string webRootPath = _webHostEnvironment.WebRootPath;
+            string contentRootPath = _webHostEnvironment.ContentRootPath;
+            string path = "";
+            path = Path.Combine(contentRootPath, "Models");
+            string modelPath= Path.Combine(path, "ML.Recommend-1.zip");
+            engine.LoadModel(modelPath);
+            
+            path = "";
+            path = Path.Combine(contentRootPath, "Dataset");
+            string customerFile = Path.Combine(path, "customers.json");
+            string jsonString = System.IO.File.ReadAllText(customerFile);
+            List<Customer> customers = JsonSerializer.Deserialize<List<Customer>>(jsonString)!;
+            Customer customer = customers.FirstOrDefault(c => c.Id == id);
+
+            path = "";
+            path = Path.Combine(contentRootPath, "Dataset");
+            string productFile = Path.Combine(path, "products.json");
+            jsonString = System.IO.File.ReadAllText(productFile);
+            List<Product> products = JsonSerializer.Deserialize<List<Product>>(jsonString)!;
+            
+            float es = 3.5f;
+            List<Product> rProducts = engine.Predict(customer, products,es);
+            ViewData["customer"] = customer;
+            return View(rProducts);
+        }
+    }
+}
+
+```
+
+# Views/Customer/Index.cshtml
+
+```
+@model IEnumerable<ML.Recommend.Data.Customer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<p>
+    List of Customers:
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NickName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NickName)
+            </td>
+            <td>
+                |@Html.ActionLink("Recommendation", "Recommends", new { id=item.Id }) |                
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+```
+
+
+# Views/Customer/Recommends.cshtml
+
+```
+@using ML.Recommend.Data
+@model IEnumerable<ML.Recommend.Data.Product>
+
+@{
+    ViewData["Title"] = "Recommends";
+}
+@{
+    Customer customer =(Customer) ViewData["customer"];
+}
+
+<p>
+    List Recommended Products for Customer: <font color='blue'>@Html.Raw(customer .Id +" -"+customer .NickName) </font> 
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Score)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Score)
+            </td>
+            <td>
+              
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
 ```
