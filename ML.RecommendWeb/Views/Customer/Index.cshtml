@@ -1,0 +1,36 @@
+﻿@model IEnumerable<ML.Recommend.Data.Customer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<p>
+    List of Customers:
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NickName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NickName)
+            </td>
+            <td>
+                |@Html.ActionLink("Recommendation", "Recommends", new { id=item.Id }) |                
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
