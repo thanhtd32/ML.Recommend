@@ -2,6 +2,14 @@
 
 We inherit and expand the machine learning library of Microsoft ML.NET, and proceed to build a new recommendation model with named ML.Recommend, which will use Matrix Factorization and combine Time Factor for Product Recommendation. The system will provide a complete machine learning model with a set of interactive classes libraries, data and class models are conducted on user reviews for each product with time interaction and the system will recommend products respectively based on the expected score to customers that user configured. The data is experimented on the UELStore e-commerce website (http://ecom.uelstore.com/), the trained models are provided for other researchers to use together with the source code of the ML.Recommend model published by us, the researchers can reuse and expand the features for this model.
 
+Mapping JSon Dataset with Model class:
+|# | Dataset | Model class |Description| Number of object| 
+|:---:|:---:|:---:|:---:| :---:| 
+|1 | customers.json | Customer | List of Customer dataset|678|
+|2 | products.json | Product | List of Product dataset|732|
+|3 | ratings.json | Rating | List of Rating dataset|130754|
+
+
 
 This Research from KMOU (Korea Maritime & Ocean University) - Data Science Lab - Room 407.
 
@@ -29,7 +37,11 @@ Install-Package ML.Recommend -ProjectName YourProject
 ```
 Full dataset : https://github.com/thanhtd32/ML.Recommend/tree/main/Dataset
 
-Full source code demo https://github.com/thanhtd32/ML.Recommend/tree/main/ML.RecommendDemo
+Full source code demo in Windows Desktop https://github.com/thanhtd32/ML.Recommend/tree/main/ML.RecommendDemo
+
+Full source code demo in Web .net core https://github.com/thanhtd32/ML.Recommend/tree/main/ML.RecommendWeb
+
+# Windows Desktop demo
 
 ```
 using ML.Recommend.Data;
