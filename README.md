@@ -311,7 +311,7 @@ namespace ML.RecommendDemo
 
 Web Project structure:
 
-![alt text](https://raw.githubusercontent.com/thanhtd32/ML.Recommend/main/images/web-project.PNG)
+![alt text](https://raw.githubusercontent.com/thanhtd32/ML.Recommend/main/images/project-web.PNG)
 
 in this web project, We use ML.Recommend-1.zip to test
 
